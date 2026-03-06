@@ -17,13 +17,13 @@ html {
 body {
   margin: 0;
   padding: 0;
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
-  background:
-    radial-gradient(circle at top, #f7f2ea 0%, #eee5d9 45%, #e4d8c8 100%);
-  color: #2f261f;
+
+  background-image: url("assets/background.jpg");
+  background-size: cover;       /* fills the screen */
+  background-position: center;  /* keeps image centered */
+  background-repeat: no-repeat; /* prevents tiling */
+  background-attachment: fixed; /* optional: subtle parallax */
 }
 
 /* Main page wrapper */
@@ -321,3 +321,4 @@ button:disabled {
     float: none !important;
   }
 }
+
