@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flipbook</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="stage">
+<div class="flipbook" id="flipbook">
+  <div class="page"><img src="images/01.jpg" alt="Page 1"></div>
+  <div class="page"><img src="images/02.jpg" alt="Page 2"></div>
+  <div class="page"><img src="images/03.jpg" alt="Page 3"></div>
+  <div class="page"><img src="images/04.jpg" alt="Page 4"></div>
+  <div class="page"><img src="images/05.jpg" alt="Page 5"></div>
+  <div class="page"><img src="images/06.jpg" alt="Page 6"></div>
+  <div class="page"><img src="images/07.jpg" alt="Page 7"></div>
+  <div class="page"><img src="images/08.jpg" alt="Page 8"></div>
+  <div class="page"><img src="images/09.jpg" alt="Page 9"></div>
+  <div class="page"><img src="images/10.jpg" alt="Page 10"></div>
+  <div class="page"><img src="images/11.jpg" alt="Page 11"></div>
+  <div class="page"><img src="images/12.jpg" alt="Page 12"></div>
+</div>
+
+  <script src="jquery.js"></script>
+  <script src="turn.js"></script>
+  <script>
+    const $book = $("#flipbook");
+
+    // Your JPG aspect ratio (W/H)
+    const PAGE_W = 1241;
+    const PAGE_H = 1270;
+    const RATIO = PAGE_W / PAGE_H; // ~0.977
+
+    function isMobile() {
+      return window.matchMedia("(max-width: 820px)").matches;
+    }
+
+    function addImageDebug() {
+      $("#flipbook img").each(function () {
+        const img = this;
+        img.addEventListener("error", () => {
+          const src = img.getAttribute("src");
+          const wrap = img.closest(".page");
+          if (!wrap) return;
+          wrap.classList.add("img-missing");
+          wrap.innerHTML = `<div class="missing">
+            <div><b>Image not found</b></div>
+            <div class="path">${src}</div>
+            <div class="hint">Check: folder name "images", file name, and .jpg vs .JPG</div>
+          </div>`;
+        }, { once: true });
+      });
+    }
+
+    function setupBook() {
+      if ($book.data("turn")) {
+        $book.turn("destroy").removeAttr("style");
+        $book.children().removeAttr("style");
+      }
+
+      const mobile = isMobile();
+      const pad = mobile ? 16 : 40;
+      const maxW = window.innerWidth - pad * 2;
+      const maxH = window.innerHeight - pad * 2;
+
+      let display = mobile ? "single" : "double";
+
+      // Choose a height that fits, then compute width from your page ratio
+      // single width = H * RATIO
+      // double width = 2 * H * RATIO
+      let bookH = Math.min(maxH, mobile ? 860 : 740);
+      let bookW = display === "single"
+        ? Math.round(bookH * RATIO)
+        : Math.round(bookH * RATIO * 2);
+
+      // If width still too wide, clamp by width and recalc height
+      if (bookW > maxW) {
+        bookW = maxW;
+        bookH = display === "single"
+          ? Math.round(bookW / RATIO)
+          : Math.round((bookW / 2) / RATIO);
+      }
+
+      $book.turn({
+        width: bookW,
+        height: bookH,
+        autoCenter: true,
+        display,
+        gradients: true,
+        elevation: 60,
+        duration: 650,
+      });
+    }
+
+    // Mouse wheel = page turn (desktop)
+    let wheelLock = false;
+    window.addEventListener("wheel", (e) => {
+      if (isMobile()) return;
+      if (!$book.data("turn")) return;
+
+      e.preventDefault();
+      if (wheelLock) return;
+      wheelLock = true;
+
+      if (e.deltaY > 0) $book.turn("next");
+      else $book.turn("previous");
+
+      setTimeout(() => (wheelLock = false), 280);
+    }, { passive: false });
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(setupBook, 150);
+    });
+
+    addImageDebug();
+    setupBook();
+  </script>
+</body>
+</html>
