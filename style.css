@@ -1,160 +1,323 @@
 /* =========================
-   Base
-========================= */
+   A PATH TO MENTAL PEACE
+   Full responsive CSS
+   ========================= */
 
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-html,body{
-  width:100%;
-  height:100%;
-  margin:0;
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top, #f7f2ea 0%, #eee5d9 45%, #e4d8c8 100%);
+  color: #2f261f;
+}
+
+/* Main page wrapper */
+.site-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+/* Optional heading area */
+.site-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.site-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.1;
+  font-weight: 700;
+  color: #3b2f25;
+}
+
+.site-subtitle {
+  margin: 10px auto 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #6f6254;
+  max-width: 700px;
+  line-height: 1.5;
+}
+
+/* Book container */
+.book-container,
+.book,
+.flipbook {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* If your pages are stacked images */
+.page,
+.book-page {
+  width: 100%;
+  margin: 0 auto 24px;
+  position: relative;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Images */
+.page img,
+.book-page img,
+.flipbook img,
+.book img,
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border: 0;
+}
+
+/* Optional caption under pages */
+.page-caption {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #6f6254;
+  margin-top: 8px;
+}
+
+/* Controls if you have prev/next buttons */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 auto 24px;
+}
+
+.controls button,
+.nav-btn,
+button {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  background: #5f7f67;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.controls button:hover,
+.nav-btn:hover,
+button:hover {
+  background: #4f6d57;
+  transform: translateY(-1px);
+}
+
+.controls button:active,
+.nav-btn:active,
+button:active {
+  transform: translateY(0);
+}
+
+.controls button:disabled,
+.nav-btn:disabled,
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Page counter if you have one */
+.page-counter,
+.counter {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #5b4d40;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Optional footer */
+.site-footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #7a6d61;
+  font-size: 0.9rem;
 }
 
 /* =========================
-   Background
-========================= */
+   DESKTOP IMAGE PRESENTATION
+   ========================= */
 
-body{
-  height:100vh;
-  overflow:hidden;
+@media (min-width: 769px) {
+  .site-wrap {
+    padding: 30px 24px 50px;
+  }
 
-  background-image:url("assets/background.jpg");
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  .page,
+  .book-page {
+    max-width: 900px;
+    margin-bottom: 32px;
+    border-radius: 16px;
+  }
 }
 
 /* =========================
-   Center the book
-========================= */
+   MOBILE FIXES
+   ========================= */
 
-.stage{
-  width:100vw;
-  height:100vh;
+@media (max-width: 768px) {
+  body {
+    background:
+      linear-gradient(180deg, #f7f1e8 0%, #eadfce 100%);
+  }
 
-  display:grid;
-  place-items:center;
+  .site-wrap {
+    padding: 12px 10px 24px;
+  }
 
-  position:relative;
-  padding:16px;
-}
+  .site-header {
+    margin-bottom: 16px;
+  }
 
-/* soft glow behind book */
-.stage::before{
-  content:"";
-  position:absolute;
+  .site-title {
+    font-size: 1.7rem;
+  }
 
-  width:900px;
-  height:600px;
+  .site-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
 
-  background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 60%);
-  filter:blur(120px);
+  .book-container,
+  .book,
+  .flipbook {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
 
-  pointer-events:none;
-}
+  .page,
+  .book-page {
+    width: 100%;
+    margin: 0 auto 16px;
+    border-radius: 12px;
+    box-shadow:
+      0 6px 18px rgba(0, 0, 0, 0.10),
+      0 1px 5px rgba(0, 0, 0, 0.05);
+  }
 
-/* =========================
-   Flipbook container
-========================= */
+  .page img,
+  .book-page img,
+  .flipbook img,
+  .book img,
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
 
-.flipbook{
-  position:relative;
+  .controls {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
 
-  /* remove book shadow completely */
-  box-shadow:none;
-}
+  .controls button,
+  .nav-btn,
+  button {
+    width: auto;
+    min-width: 110px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
 
-/* =========================
-   Pages
-========================= */
-
-.page{
-  position:relative;
-
-  display:grid;
-  place-items:center;
-
-  overflow:hidden;
-
-  border-radius:6px;
-
-  /* neutral page colour */
-  background:#0b0d12;
-}
-
-/* REMOVE page shading overlay completely */
-.page::before{
-  display:none !important;
-}
-
-/* =========================
-   Images
-========================= */
-
-.page img{
-  width:100%;
-  height:100%;
-
-  object-fit:contain;
-
-  display:block;
-
-  /* shadow ONLY on the image */
-  filter:drop-shadow(0 20px 35px rgba(0,0,0,0.45));
-}
-
-/* =========================
-   Turn.js wrappers
-========================= */
-
-/* remove Turn.js shadow effects */
-.flipbook .page-wrapper{
-  box-shadow:none !important;
-}
-
-.turn-page{
-  box-shadow:none !important;
+  .page-counter,
+  .counter {
+    width: 100%;
+    max-width: 220px;
+    text-align: center;
+  }
 }
 
 /* =========================
-   Touch behaviour
-========================= */
+   SMALL PHONE FIXES
+   ========================= */
 
-.flipbook,
-.flipbook *{
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;
+@media (max-width: 480px) {
+  .site-wrap {
+    padding: 10px 8px 20px;
+  }
+
+  .site-title {
+    font-size: 1.45rem;
+  }
+
+  .site-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .page,
+  .book-page {
+    margin-bottom: 14px;
+    border-radius: 10px;
+  }
+
+  .controls {
+    flex-direction: column;
+  }
+
+  .controls button,
+  .nav-btn,
+  button {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .page-counter,
+  .counter {
+    max-width: 260px;
+  }
 }
 
 /* =========================
-   Debug for missing images
-========================= */
+   SAFETY OVERRIDES
+   Stops desktop-style layouts from breaking mobile
+   ========================= */
 
-.img-missing{
-  background:#1a1d26;
-}
-
-.missing{
-  padding:18px;
-  color:#fff;
-  text-align:center;
-  line-height:1.35;
-}
-
-.missing .path{
-  margin-top:10px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-  font-size:12px;
-  opacity:.9;
-  word-break:break-all;
-}
-
-.missing .hint{
-  margin-top:10px;
-  opacity:.75;
-  font-size:12px;
+@media (max-width: 768px) {
+  .page,
+  .book-page,
+  .flipbook .page,
+  .book .page {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    float: none !important;
+  }
 }
